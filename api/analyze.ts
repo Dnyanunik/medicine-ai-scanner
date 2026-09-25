@@ -88,7 +88,7 @@ JSON Structure:
     const rawText = (response.content[0] as Anthropic.TextBlock).text ?? '';  // ✅ type-safe
 
     const cleanJsonText = rawText
-      .replace(/```json/gi, '')
+        .replace(/```json/gi, '')
       .replace(/```/g, '')
       .trim();
 
