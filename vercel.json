@@ -1,6 +1,11 @@
 {
   "buildCommand": "ng build --configuration production",
   "outputDirectory": "dist/medicine-label-reader/browser",
+  "functions": {
+    "api/analyze.ts": {
+      "runtime": "@vercel/node@3"
+    }
+  },
   "rewrites": [
     {
       "source": "/((?!api/).*)",
