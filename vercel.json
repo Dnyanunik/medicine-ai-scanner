@@ -3,7 +3,7 @@
   "outputDirectory": "dist/medicine-label-reader/browser",
   "rewrites": [
     {
-      "source": "/((?!api/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
