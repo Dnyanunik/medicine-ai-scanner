@@ -1,0 +1,113 @@
+.app-footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+  padding: 3rem 1rem 1rem 1rem;
+  margin-top: auto;
+  border-top: 1px solid #1e293b;
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 2.5rem;
+
+    .footer-col {
+      h4 {
+        color: #f8fafc;
+        font-size: 1rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 0.5rem;
+
+          a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #38bdf8;
+            }
+          }
+        }
+      }
+
+      p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+
+    .brand-col {
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #f8fafc;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+
+        mat-icon {
+          color: #38bdf8;
+        }
+      }
+    }
+
+    .disclaimer-col {
+      p {
+        background: #1e293b;
+        padding: 0.85rem;
+        border-radius: 8px;
+        border-left: 3px solid #f59e0b;
+        color: #cbd5e1;
+      }
+    }
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2.5rem auto 0 auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid #1e293b;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+}
+
+/* Tablet Layout */
+@media (max-width: 900px) {
+  .app-footer .footer-container {
+    grid-template-columns: 1fr 1fr;
+
+    .disclaimer-col {
+      grid-column: span 2;
+    }
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 600px) {
+  .app-footer {
+    padding: 2rem 1rem 1rem 1rem;
+
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+
+      .disclaimer-col {
+        grid-column: span 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.upload-container {
+  border: 2px dashed #b0bec5;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  &:hover {
+    border-color: #3f51b5; /* Angular Material primary color */
+    background-color: #f5f6fa;
+  }
+}
+
+.hidden-input {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: #78909c;
+}
+
+h3 {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.error-text {
+  color: #f44336;
+  font-weight: 500;
+  margin-top: 8px;
+}

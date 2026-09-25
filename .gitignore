@@ -42,3 +42,23 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# Environment secrets
+.env
+.env.local
+src/environments/environment.ts
+.vercel
+# Node dependencies
+/node_modules
+
+# Angular build output
+/dist
+/.angular
+.vercel

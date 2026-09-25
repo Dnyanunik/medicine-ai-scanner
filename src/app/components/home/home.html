@@ -1,0 +1,37 @@
+<mat-card class="home-card">
+  <mat-card-content>
+
+    <!-- Error Alert Banner -->
+    <div *ngIf="errorMessage" class="error-banner">
+      <p>{{ errorMessage }}</p>
+      <button (click)="onResetImage()">Try Again</button>
+    </div>
+
+    <!-- Upload State -->
+    <app-image-upload
+      *ngIf="!previewUrl && !isLoading && !analysisResult"
+      (imageSelected)="onImageSelected($event)">
+    </app-image-upload>
+
+    <!-- Preview State -->
+    <app-image-preview
+      *ngIf="previewUrl && !isLoading && !analysisResult && !errorMessage"
+      [previewUrl]="previewUrl"
+      (reset)="onResetImage()"
+      (analyze)="onAnalyzeImage()">
+    </app-image-preview>
+
+    <!-- Loading State -->
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <!-- Result State -->
+    <app-analysis-result
+      *ngIf="analysisResult"
+      [result]="analysisResult"
+      [currentLanguage]="selectedLanguage"
+      (languageChange)="onLanguageChange($event)"
+      (reset)="onResetImage()">
+    </app-analysis-result>
+
+  </mat-card-content>
+</mat-card>

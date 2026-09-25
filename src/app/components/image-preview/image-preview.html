@@ -1,0 +1,15 @@
+<div class="preview-container">
+  <div class="image-wrapper">
+    <img [src]="previewUrl" alt="Medicine Label Preview" class="preview-image" />
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button color="warn" (click)="onReset()">
+      <mat-icon>refresh</mat-icon> Choose Different Image
+    </button>
+
+    <button mat-flat-button color="primary" class="analyze-btn" (click)="onAnalyze()">
+      <mat-icon>search</mat-icon> Analyze Medicine Label
+    </button>
+  </div>
+</div>

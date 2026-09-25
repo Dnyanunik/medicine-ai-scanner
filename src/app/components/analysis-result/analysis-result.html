@@ -1,0 +1,104 @@
+<div class="result-container printable-area" *ngIf="result">
+
+  <!-- Action Header Toolbar (Hidden during Print) -->
+  <div class="action-toolbar no-print">
+    <mat-form-field appearance="outline" class="lang-selector">
+      <mat-label><mat-icon inline>translate</mat-icon> Language</mat-label>
+      <mat-select [ngModel]="currentLanguage" (ngModelChange)="onLanguageSelect($event)">
+        <mat-option *ngFor="let lang of languages" [value]="lang.code">
+          {{ lang.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="toolbar-buttons">
+      <button mat-stroked-button color="primary" (click)="copySummary()">
+        <mat-icon>{{ copied ? 'check' : 'content_copy' }}</mat-icon>
+        {{ copied ? 'Copied!' : 'Copy Text' }}
+      </button>
+
+      <button mat-raised-button color="primary" (click)="exportPdf()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Export PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Image Quality & Clarity Feedback Banner -->
+  <div class="feedback-banner" *ngIf="result.imageFeedback" [class.warning]="result.confidence !== 'High'">
+    <div class="feedback-header">
+      <mat-icon>info</mat-icon>
+      <strong>Image Analysis Feedback:</strong>
+    </div>
+    <p>{{ result.imageFeedback }}</p>
+  </div>
+
+  <!-- Main Analysis Header -->
+  <div class="header">
+    <h2>{{ result.medicineName }}</h2>
+    <span class="confidence-badge" [class]="result.confidence.toLowerCase()">
+      Confidence: {{ result.confidence }}
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Extracted Details Grid -->
+  <div class="details-grid">
+    <div class="detail-item">
+      <strong>Active Ingredients:</strong>
+      <p *ngIf="result.activeIngredients?.length">{{ result.activeIngredients.join(', ') }}</p>
+      <p *ngIf="!result.activeIngredients?.length">Not clearly visible</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Strength:</strong>
+      <p>{{ result.strength }}</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Form:</strong>
+      <p>{{ result.form }}</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Purpose:</strong>
+      <p>{{ result.labelPurpose }}</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Storage:</strong>
+      <p>{{ result.storage }}</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Expiry Date:</strong>
+      <p>{{ result.expiryDate }}</p>
+    </div>
+
+    <div class="detail-item">
+      <strong>Manufacturer:</strong>
+      <p>{{ result.manufacturer }}</p>
+    </div>
+  </div>
+
+  <!-- Warnings Section -->
+  <div class="warnings-section" *ngIf="result.warnings && result.warnings.length">
+    <h3><mat-icon color="warn">warning</mat-icon> Label Warnings</h3>
+    <ul>
+      <li *ngFor="let warning of result.warnings">{{ warning }}</li>
+    </ul>
+  </div>
+
+  <!-- Medical Guidance Card -->
+  <div class="advice-card" *ngIf="result.generalAdvice">
+    <h3><mat-icon color="primary">health_and_safety</mat-icon> Helpful Guidance</h3>
+    <p>{{ result.generalAdvice }}</p>
+    <app-disclaimer></app-disclaimer>
+  </div>
+
+  <!-- Reset Button (Hidden during Print) -->
+  <div class="actions no-print">
+    <button mat-flat-button color="primary" (click)="onScanAnother()">Scan Another Medicine</button>
+  </div>
+</div>

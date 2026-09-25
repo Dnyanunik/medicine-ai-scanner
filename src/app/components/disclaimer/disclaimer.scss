@@ -1,0 +1,25 @@
+.disclaimer-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #eef6fc;
+  border-left: 4px solid #0288d1;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+
+  .disclaimer-icon {
+    color: #0288d1;
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+    margin-top: 2px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #01579b;
+    line-height: 1.4;
+  }
+}
