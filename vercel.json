@@ -1,4 +1,6 @@
 {
+  "buildCommand": "ng build --configuration production",
+  "outputDirectory": "dist/medicine-label-reader/browser",
   "rewrites": [
     {
       "source": "/((?!api/).*)",
