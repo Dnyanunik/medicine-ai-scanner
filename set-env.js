@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-const targetPath = './src/environments/environment.ts';
-const envConfigFile = `export const environment = {
+const apiKey = process.env.ANTHROPIC_API_KEY || '';
+
+const envContent = `export const environment = {
   production: true,
-  anthropicApiKey: '${process.env.ANTHROPIC_API_KEY || ''}'
+  anthropicApiKey: '${apiKey}'
 };
 `;
 
-fs.mkdirSync('./src/environments', { recursive: true });
-fs.writeFileSync(targetPath, envConfigFile);
-console.log('✅ environment.ts generated for Vercel build.');
+fs.writeFileSync('./src/environments/environment.ts', envContent);
+fs.writeFileSync('./src/environments/environment.prod.ts', envContent);
