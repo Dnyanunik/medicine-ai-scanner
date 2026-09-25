@@ -5,20 +5,13 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
-  // Handle browser CORS preflight check
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const apiKey = process.env['ANTHROPIC_API_KEY'];
   if (!apiKey) {
@@ -29,9 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { image, language } = req.body || {};
     const targetLanguage = language || 'English';
 
-    if (!image) {
-      return res.status(400).json({ error: 'No image provided.' });
-    }
+    if (!image) return res.status(400).json({ error: 'No image provided.' });
 
     const mimeType = image.includes('data:')
       ? image.split(';')[0].split(':')[1]
@@ -70,10 +61,10 @@ JSON Structure:
 }`;
 
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-sonnet-5',        // ✅ Updated from deprecated claude-3-5-sonnet-20241022
       max_tokens: 1500,
       temperature: 0.1,
-      system: "You are an expert AI medicine label extraction assistant and clinical health communicator. You output raw valid JSON only.",
+      system: 'You are an expert AI medicine label extraction assistant and clinical health communicator. You output raw valid JSON only.',
       messages: [
         {
           role: 'user',
@@ -82,7 +73,7 @@ JSON Structure:
               type: 'image',
               source: {
                 type: 'base64',
-                media_type: mimeType as any,
+                media_type: mimeType as 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp',
                 data: base64Data
               }
             },
@@ -95,7 +86,7 @@ JSON Structure:
       ]
     });
 
-    const rawText = (response.content[0] as any).text || '';
+    const rawText = (response.content[0] as Anthropic.TextBlock).text ?? '';  // ✅ type-safe
 
     const cleanJsonText = rawText
       .replace(/```json/gi, '')
@@ -105,11 +96,11 @@ JSON Structure:
     const extractedData = JSON.parse(cleanJsonText);
     return res.status(200).json(extractedData);
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Claude API Error:', error);
     return res.status(500).json({
       error: 'Failed to analyze medicine label with Claude.',
-      details: error?.message || 'Unknown error'
+      details: error instanceof Error ? error.message : 'Unknown error'   // ✅ type-safe
     });
   }
 }
