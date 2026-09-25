@@ -1,6 +1,6 @@
 {
   "buildCommand": "ng build",
-  "outputDirectory": "dist/medicine-ai-scanner/browser",
+  "outputDirectory": "dist/medicine-label-reader",
   "framework": "angular",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
