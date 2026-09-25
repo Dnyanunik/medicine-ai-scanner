@@ -24,7 +24,7 @@
     "@angular/ssr": "^21.2.5",
     "@anthropic-ai/sdk": "^0.128.0",
     "@google/genai": "^2.24.0",
-    "@vercel/node": "^15.0.0",
+    "@vercel/node": "^3.2.29",
     "dotenv": "^18.0.3",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
