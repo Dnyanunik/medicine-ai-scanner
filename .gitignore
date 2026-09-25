@@ -53,7 +53,6 @@ Thumbs.db
 # Environment secrets
 .env
 .env.local
-src/environments/environment.ts
 .vercel
 # Node dependencies
 /node_modules
