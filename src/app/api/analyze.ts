@@ -5,6 +5,17 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+  // Handle browser CORS preflight check
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -15,14 +26,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { image, language } = req.body;
+    const { image, language } = req.body || {};
     const targetLanguage = language || 'English';
 
     if (!image) {
       return res.status(400).json({ error: 'No image provided.' });
     }
 
-    // Claude supports image/jpeg, image/png, image/gif, image/webp
     const mimeType = image.includes('data:')
       ? image.split(';')[0].split(':')[1]
       : 'image/jpeg';
@@ -62,7 +72,7 @@ JSON Structure:
     const response = await anthropic.messages.create({
       model: 'claude-3-5-sonnet-20241022',
       max_tokens: 1500,
-      temperature: 0.1, // Low temperature for factual extraction
+      temperature: 0.1,
       system: "You are an expert AI medicine label extraction assistant and clinical health communicator. You output raw valid JSON only.",
       messages: [
         {
@@ -85,10 +95,8 @@ JSON Structure:
       ]
     });
 
-    // Extract text from Claude's response
     const rawText = (response.content[0] as any).text || '';
 
-    // Clean up in case Claude adds markdown JSON blocks despite instructions
     const cleanJsonText = rawText
       .replace(/```json/gi, '')
       .replace(/```/g, '')

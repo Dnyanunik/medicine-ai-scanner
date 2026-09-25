@@ -72,12 +72,12 @@ export class Home {
       },
       error: (error) => {
         this.isLoading = false;
-        console.error('Gemini API Error details:', error);
+        console.error('Claude API Error details:', error);
 
         const apiMessage = error?.error?.error?.message || error?.error?.message || error?.message;
 
         if (error?.status === 503 || error?.status === 429) {
-          this.errorMessage = 'Google AI servers are currently under high demand. Please wait 10 seconds and try again!';
+          this.errorMessage = 'Claude AI servers are currently under high demand. Please wait 10 seconds and try again!';
         } else if (apiMessage && typeof apiMessage === 'string') {
           this.errorMessage = `API Error: ${apiMessage}`;
         } else {
