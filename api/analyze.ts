@@ -60,7 +60,7 @@ JSON Structure:
 }`;
 
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-5',        // ✅ Updated from deprecated claude-3-5-sonnet-20241022
+      model: 'claude-haiku-4-5-20251001',        // ✅ Updated from deprecated claude-3-5-sonnet-20241022
       max_tokens: 1500,
       temperature: 0.1,
       system: 'You are an expert AI medicine label extraction assistant and clinical health communicator. You output raw valid JSON only.',
