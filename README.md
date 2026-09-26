@@ -1,59 +1,107 @@
-# MedicineLabelReader
+# Medicine Label Reader
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
+Medicine Label Reader is an AI-powered web application that analyzes medicine-label images using **Claude AI**. It extracts visible medicine information such as medicine name, active ingredients, strength, dosage form, expiry date, storage instructions, warnings, and manufacturer in a clear and structured format.
 
-## Development server
+> **Important:** This project is intended for informational medicine-label interpretation only. It does not provide medical diagnosis, prescriptions, dosage recommendations, or instructions to start, stop, or change medication.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Project Output
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Home Page
 
-## Code scaffolding
+![Medicine Label Reader Home](src/assets/image1.png)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+![Medicine Label Reader Upload](src/assets/image2.png)
 
-```bash
-ng generate --help
-```
 
-## Building
 
-To build the project run:
+![Medicine Label Reader Preview](src/assets/image3.png)
 
-```bash
-ng build
-```
+### Medicine Image Upload
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+![Medicine Label Reader Analysis](src/assets/image4.png)
 
-## Running unit tests
+### Extracting Medicine Information
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+![Medicine Label Reader Information](src/assets/image5.png)
 
-```bash
-ng test
-```
+### Final Application Output
 
-## Running end-to-end tests
+![Medicine Label Reader Result](src/assets/image6.png)
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+![Medicine Label Reader Output](src/assets/image7.png)
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Features
+
+- Upload medicine-label images
+- Preview selected medicine images
+- Analyze images using Claude AI
+- Extract visible medicine information
+- Medicine name extraction
+- Active ingredient extraction
+- Strength identification
+- Dosage form identification
+- Expiry date extraction
+- Storage information extraction
+- Warning extraction
+- Manufacturer information
+- AI confidence level
+- Safe handling of unclear information
+- Responsive UI
+- Secure server-side API integration
+- Environment-based API key management
+- Vercel deployment support
+
+---
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Angular 21 | Frontend |
+| TypeScript | Application development |
+| Angular Material | UI components |
+| SCSS | Styling |
+| Claude AI | Medicine-label image analysis |
+| Vercel | Serverless API and deployment |
+| GitHub | Version control |
+
+---
+
+# Project Architecture
+
+```text
+                    Medicine Label Image
+                            |
+                            v
+                 +----------------------+
+                 |   Angular Frontend   |
+                 | Medicine Label Reader|
+                 +----------+-----------+
+                            |
+                            | POST /api/analyze
+                            v
+                 +----------------------+
+                 | Vercel Serverless API|
+                 |      analyze.ts      |
+                 +----------+-----------+
+                            |
+                            | CLAUDE_API_KEY
+                            v
+                 +----------------------+
+                 |       Claude AI      |
+                 |   Image Analysis     |
+                 +----------+-----------+
+                            |
+                            | Structured JSON
+                            v
+                 +----------------------+
+                 |   Angular Result UI  |
+                 +----------------------+
